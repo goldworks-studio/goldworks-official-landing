@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Space_Grotesk, JetBrains_Mono } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const rawBasePath = process.env.PAGES_BASE_PATH?.trim() ?? ''
@@ -59,7 +58,6 @@ export default function RootLayout({
     <html lang="en" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
       <body className="font-sans antialiased bg-background text-foreground">
         {children}
-        <Analytics />
       </body>
     </html>
   )
