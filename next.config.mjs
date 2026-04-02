@@ -3,6 +3,7 @@ import { fileURLToPath } from "node:url"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const rawBasePath = process.env.PAGES_BASE_PATH?.trim() ?? ""
+const shouldExport = process.env.NEXT_OUTPUT_MODE === "export"
 const basePath =
   rawBasePath && rawBasePath !== "/"
     ? rawBasePath.startsWith("/")
@@ -12,7 +13,6 @@ const basePath =
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",
   trailingSlash: true,
   typescript: {
     ignoreBuildErrors: true,
@@ -23,6 +23,11 @@ const nextConfig = {
   turbopack: {
     root: __dirname,
   },
+  ...(shouldExport
+    ? {
+        output: "export",
+      }
+    : {}),
   ...(basePath
     ? {
         basePath,

@@ -1,0 +1,9 @@
+127.0.0.1 - - [02/Apr/2026 14:19:40] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [02/Apr/2026 14:19:51] "GET / HTTP/1.1" 200 -
+192.168.0.11 - - [02/Apr/2026 14:20:02] "GET / HTTP/1.1" 200 -
+192.168.0.11 - - [02/Apr/2026 14:20:02] "GET /_next/static/chunks/0mua_.8x~yb7u.js HTTP/1.1" 200 -
+192.168.0.11 - - [02/Apr/2026 14:20:02] "GET /_next/static/chunks/0zzpi~y66fah-.css HTTP/1.1" 200 -
+192.168.0.11 - - [02/Apr/2026 14:20:02] "GET /_next/static/chunks/turbopack-0jsg9fcaex25-.js HTTP/1.1" 200 -
+192.168.0.11 - - [02/Apr/2026 14:20:02] code 404, message File not found
+192.168.0.11 - - [02/Apr/2026 14:20:02] "GET /goldworks-icon.svg HTTP/1.1" 200 -
+192.168.0.11 - - [02/Apr/2026 14:20:02] "GET /_vercel/insights/script.js HTTP/1.1" 404 -

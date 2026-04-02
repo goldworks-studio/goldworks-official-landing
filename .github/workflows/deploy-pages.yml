@@ -54,6 +54,7 @@ jobs:
       - name: Build static export
         env:
           NEXT_TELEMETRY_DISABLED: "1"
+          NEXT_OUTPUT_MODE: "export"
         run: npm run build
 
       - name: Disable Jekyll
