@@ -35,7 +35,14 @@ jobs:
         env:
           CUSTOM_PAGES_BASE_PATH: ${{ vars.PAGES_BASE_PATH }}
         run: |
+          if [ -s "public/CNAME" ] || [ -s "CNAME" ]; then
+            echo "Detected custom domain via CNAME. Publishing from site root."
+            echo "PAGES_BASE_PATH=" >> "$GITHUB_ENV"
+            exit 0
+          fi
+
           if [ -n "$CUSTOM_PAGES_BASE_PATH" ]; then
+            echo "Using custom base path override: $CUSTOM_PAGES_BASE_PATH"
             echo "PAGES_BASE_PATH=$CUSTOM_PAGES_BASE_PATH" >> "$GITHUB_ENV"
             exit 0
           fi
