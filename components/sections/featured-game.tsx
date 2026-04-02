@@ -57,7 +57,7 @@ export function FeaturedGame() {
         >
           <div className="relative rounded-2xl border border-border bg-card overflow-hidden">
             {/* Visual showcase area */}
-            <div className="relative aspect-[4/5] sm:aspect-[16/10] lg:aspect-[21/9] bg-gradient-to-br from-blue-950/50 via-card to-cyan-950/30 overflow-hidden">
+            <div className="relative aspect-[6/5] sm:aspect-[16/10] lg:aspect-[21/9] bg-gradient-to-br from-blue-950/50 via-card to-cyan-950/30 overflow-hidden">
               {/* Animated water waves background */}
               <div className="absolute inset-0">
                 <div 
@@ -92,7 +92,7 @@ export function FeaturedGame() {
               </div>
               
               {/* Central visual element */}
-              <div className="absolute inset-0 flex items-center justify-center px-6 py-10 sm:px-10 sm:py-12">
+              <div className="absolute inset-0 flex items-center justify-center px-6 py-8 sm:px-10 sm:py-12">
                 <div className="relative w-full">
                   {/* Geometric game title treatment */}
                   <div className="text-center">
