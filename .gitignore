@@ -9,3 +9,8 @@ next.user-config.*
 node_modules
 .next/
 .DS_Store
+
+# Generated export and local verification artifacts
+out/
+*.tsbuildinfo
+*.log

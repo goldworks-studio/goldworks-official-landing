@@ -1,21 +1,22 @@
-import path from "node:path"
-import { fileURLToPath } from "node:url"
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const rawBasePath = process.env.PAGES_BASE_PATH?.trim() ?? ""
-const shouldExport = process.env.NEXT_OUTPUT_MODE === "export"
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const rawBasePath = process.env.PAGES_BASE_PATH?.trim() ?? "";
+const shouldExport = process.env.NEXT_OUTPUT_MODE === "export";
 const basePath =
   rawBasePath && rawBasePath !== "/"
     ? rawBasePath.startsWith("/")
       ? rawBasePath.replace(/\/+$/, "")
       : `/${rawBasePath.replace(/\/+$/, "")}`
-    : ""
+    : "";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  devIndicators: false,
   trailingSlash: true,
-  typescript: {
-    ignoreBuildErrors: true,
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
   },
   images: {
     unoptimized: true,
@@ -34,6 +35,6 @@ const nextConfig = {
         assetPrefix: basePath,
       }
     : {}),
-}
+};
 
-export default nextConfig
+export default nextConfig;

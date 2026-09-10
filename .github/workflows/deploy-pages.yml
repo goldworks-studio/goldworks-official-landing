@@ -2,32 +2,35 @@ name: Deploy Next.js site to GitHub Pages
 
 on:
   push:
+  pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: pages-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
 
     steps:
       - name: Checkout
         uses: actions/checkout@v5
 
       - name: Configure GitHub Pages
+        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Resolve base path
@@ -58,23 +61,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build static export
-        env:
-          NEXT_TELEMETRY_DISABLED: "1"
-          NEXT_OUTPUT_MODE: "export"
-        run: npm run build
-
-      - name: Disable Jekyll
-        run: touch out/.nojekyll
+      - name: Build and verify static export
+        run: npm run build:pages
 
       - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v4
         with:
           path: ./out
           include-hidden-files: true
 
   deploy:
-    if: github.ref_name == github.event.repository.default_branch
+    if: github.event_name != 'pull_request' && github.ref_name == github.event.repository.default_branch
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
