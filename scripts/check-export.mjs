@@ -14,7 +14,27 @@ const routes = new Map([
   ["/ko/privacy/", "개인정보처리방침"],
   ["/ko/privacy/byeolmong/", "별몽 개인정보 안내"],
   ["/ko/account-deletion/", "계정 및 데이터 삭제 요청"],
+  ["/es/privacy/", "Política de privacidad"],
+  ["/ja/privacy/", "プライバシーポリシー"],
+  ["/pt-br/privacy/", "Política de Privacidade"],
+  ["/zh-cn/privacy/", "隐私政策"],
 ]);
+const localeCodes = {
+  en: "en",
+  es: "es",
+  ja: "ja",
+  ko: "ko",
+  "pt-br": "pt-BR",
+  "zh-cn": "zh-Hans",
+};
+const policyPaths = {
+  en: "/privacy/",
+  es: "/es/privacy/",
+  ja: "/ja/privacy/",
+  ko: "/ko/privacy/",
+  "pt-br": "/pt-br/privacy/",
+  "zh-cn": "/zh-cn/privacy/",
+};
 for (const [route, text] of routes) {
   const file = path.join(output, route, "index.html");
   assert(existsSync(file), `Missing public route: ${route}`);
@@ -27,10 +47,15 @@ for (const [route, text] of routes) {
     html.includes('<html lang="en"'),
     `Missing document language: ${route}`,
   );
-  const korean = route.startsWith("/ko/");
-  if (!korean) {
+  const segment = route.split("/")[1];
+  const locale = Object.hasOwn(localeCodes, segment) ? segment : "en";
+  if (locale === "en") {
+    const documentHtml = html
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "")
+      .replace(/<select\b[^>]*>[\s\S]*?<\/select>/g, "")
+      .replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/g, "");
     assert(
-      !/[가-힣ㄱ-ㅎㅏ-ㅣ]/.test(html),
+      !/[가-힣ㄱ-ㅎㅏ-ㅣ]/.test(documentHtml),
       `English page contains Korean content or metadata: ${route}`,
     );
     assert(
@@ -40,14 +65,52 @@ for (const [route, text] of routes) {
   }
   if (route !== "/") {
     assert(
-      html.includes(`<div lang="${korean ? "ko" : "en"}"`),
+      html.includes(`<div lang="${localeCodes[locale]}"`),
       `Incorrect legal content language: ${route}`,
     );
-    const alternate = korean ? route.slice(3) : `/ko${route}`;
-    assert(
-      html.includes(`href="${basePath}${alternate}"`),
-      `Missing alternate language link: ${route}`,
+    const isPolicy = Object.values(policyPaths).includes(route);
+    const options = [...html.matchAll(/<option\b([^>]*)>/g)].map((match) => ({
+      value: match[1].match(/value="([^"]+)"/)?.[1],
+      selected: /\bselected/.test(match[1]),
+    }));
+    const expectedLocales = isPolicy ? Object.keys(policyPaths) : ["en", "ko"];
+    assert.deepEqual(
+      options.map((option) => option.value).sort(),
+      [...expectedLocales].sort(),
+      `Wrong dropdown languages: ${route}`,
     );
+    assert.deepEqual(
+      options.filter((option) => option.selected).map((option) => option.value),
+      [locale],
+      `Incorrect selected language: ${route}`,
+    );
+    assert(
+      html.includes("<noscript>"),
+      `Missing no-JavaScript language navigation: ${route}`,
+    );
+    assert(
+      !/Read in Korean|Read in English/.test(html),
+      `Remove the old two-language link: ${route}`,
+    );
+    if (isPolicy) {
+      for (const [lang, destination] of Object.entries(policyPaths)) {
+        assert(
+          html.includes(`href="${basePath}${destination}"`),
+          `Missing fallback language link ${lang}: ${route}`,
+        );
+        assert(
+          html
+            .toLowerCase()
+            .includes(`hreflang="${localeCodes[lang].toLowerCase()}"`),
+          `Missing search language ${lang}: ${route}`,
+        );
+      }
+      assert.equal(
+        [...html.matchAll(/<section id="/g)].length,
+        10,
+        `Incomplete policy sections: ${route}`,
+      );
+    }
   }
   assert(
     html.includes(`https://goldworks.net${basePath}${route}`),
@@ -151,5 +214,5 @@ for (const file of htmlFiles(output)) {
   }
 }
 console.log(
-  `Verified ${routes.size} public routes, ${checked} asset references, English default pages and email template, optional Korean notices, sitemap, and GitHub Pages files (base path: ${basePath || "/"}).`,
+  `Verified ${routes.size} public routes, ${checked} asset references, six policy languages, selected dropdown values, no-JavaScript links, English defaults, and GitHub Pages files (base path: ${basePath || "/"}).`,
 );

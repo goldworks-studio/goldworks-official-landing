@@ -19,7 +19,7 @@ export default function ByeolmongPrivacyPage() {
   return (
     <LegalLayout
       locale="ko"
-      alternateHref="/privacy/byeolmong/"
+      documentPath="/privacy/byeolmong/"
       title="별몽 개인정보 안내"
       eyebrow="GOLDWORKS / BYEOLMONG"
       intro="이 안내는 골드웍스가 제공하는 별몽(Byeolmong)의 개인정보 처리 방식을 설명합니다. 보관·파기, 이용자 권리 및 문의에 관한 공통 기준은 GoldWorks 개인정보처리방침과 함께 적용됩니다."

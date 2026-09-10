@@ -21,7 +21,7 @@ export default function AccountDeletionPage() {
   return (
     <LegalLayout
       locale="ko"
-      alternateHref="/account-deletion/"
+      documentPath="/account-deletion/"
       title="계정 및 데이터 삭제 요청"
       eyebrow="GOLDWORKS / YOUR DATA, YOUR CHOICE"
       intro="별몽(Byeolmong)을 비롯해 GoldWorks가 제공하는 서비스의 계정과 개인정보 삭제를 요청할 수 있습니다. 앱을 다시 설치하거나 웹사이트에 로그인하지 않고도 아래 이메일로 요청해 주세요."

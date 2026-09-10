@@ -4,6 +4,7 @@ import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
 await import("./check-motion.mjs");
+await import("./check-translations.mjs");
 const build = spawnSync(
   process.execPath,
   [require.resolve("next/dist/bin/next"), "build"],

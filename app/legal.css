@@ -41,19 +41,78 @@
   border-bottom: 1px solid #2b2d2f;
   padding: 25px 0 34px;
 }
-.legal-language {
+.legal-heading-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 24px;
   align-items: center;
-  margin-top: 22px;
-  font-size: 13px;
-  color: #939591;
+  justify-content: space-between;
+  gap: 20px 28px;
 }
-.legal-language a {
+.language-select {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 13px;
+  color: #b6b7b2;
+}
+.language-select label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.language-select-control {
+  position: relative;
+}
+.language-select select {
+  appearance: none;
+  color-scheme: dark;
+  color: #efede8;
+  background: #141618;
+  border: 1px solid #45443e;
+  border-radius: 6px;
+  min-width: 155px;
+  min-height: 44px;
+  padding: 10px 40px 10px 15px;
+  cursor: pointer;
+  font: inherit;
+}
+.language-select select:hover {
+  border-color: #b59b6a;
+}
+.language-select-control > svg {
+  position: absolute;
+  right: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #d5b779;
+}
+.legal-language-fallback {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin-top: 20px;
+}
+.legal-language-fallback a {
   color: #d5b779;
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+.legal-page:lang(ja),
+.site-footer:lang(ja) {
+  font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+.legal-page:lang(zh-Hans),
+.site-footer:lang(zh-Hans) {
+  font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+}
+.legal-intro:lang(ja),
+.legal-content:lang(ja) p,
+.legal-content:lang(ja) li,
+.legal-intro:lang(zh-Hans),
+.legal-content:lang(zh-Hans) p,
+.legal-content:lang(zh-Hans) li {
+  word-break: normal;
 }
 .legal-page h1 {
   overflow-wrap: anywhere;
@@ -202,6 +261,10 @@
   }
 }
 @media (max-width: 700px) {
+  .legal-page:lang(ja) h1 {
+    font-size: clamp(24px, 7.6vw, 42px);
+    letter-spacing: -0.025em;
+  }
   .legal-page {
     padding: 45px 6% 60px;
   }

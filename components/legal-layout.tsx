@@ -2,6 +2,14 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { Footer } from "@/components/sections/footer";
+import { LanguageSelect } from "@/components/language-select";
+import {
+  documentLanguages,
+  legalPath,
+  localeDetails,
+  type LegalDocument,
+  type PrivacyLocale,
+} from "@/lib/legal-locales";
 import { site } from "@/lib/site";
 
 type Props = {
@@ -9,8 +17,8 @@ type Props = {
   eyebrow: string;
   intro: string;
   children: ReactNode;
-  locale?: "en" | "ko";
-  alternateHref?: string;
+  locale?: PrivacyLocale;
+  documentPath?: LegalDocument;
 };
 
 export function LegalLayout({
@@ -19,46 +27,67 @@ export function LegalLayout({
   intro,
   children,
   locale = "en",
-  alternateHref,
+  documentPath = "/privacy/",
 }: Props) {
-  const korean = locale === "ko";
+  const copy = localeDetails[locale];
+  const date = new Intl.DateTimeFormat(copy.language, {
+    dateStyle: "long",
+    timeZone: "UTC",
+  }).format(new Date(`${site.policyDate}T00:00:00Z`));
+  const options = documentLanguages(documentPath).map((value) => ({
+    value,
+    label: localeDetails[value].name,
+    language: localeDetails[value].language,
+    href: legalPath(value, documentPath),
+  }));
   return (
-    <div lang={locale}>
+    <div lang={copy.language}>
       <a className="skip-link" href="#main">
-        {korean ? "본문으로 바로가기" : "Skip to content"}
+        {copy.skip}
       </a>
       <SiteHeader />
       <main id="main" className="legal-page">
         <div className="legal-wrap">
-          <p className="legal-eyebrow">{eyebrow}</p>
+          <div className="legal-heading-row">
+            <p className="legal-eyebrow">{eyebrow}</p>
+            <LanguageSelect
+              locale={locale}
+              label={copy.languageLabel}
+              hint={copy.selectionHint}
+              options={options}
+            />
+          </div>
+          <noscript>
+            <nav
+              className="legal-language-fallback"
+              aria-label={copy.languageLabel}
+            >
+              {options.map((option) => (
+                <Link
+                  key={option.value}
+                  href={option.href}
+                  hrefLang={option.language}
+                  lang={option.language}
+                  aria-current={option.value === locale ? "page" : undefined}
+                >
+                  {option.label}
+                </Link>
+              ))}
+            </nav>
+          </noscript>
           <h1>{title}</h1>
           <p className="legal-intro">{intro}</p>
           <div className="legal-meta">
             <span>
-              {korean ? "운영자" : "Operator"}: {site.name}
+              {copy.operator}: {site.name}
             </span>
             <span>
-              {korean ? "시행일" : "Effective date"}:{" "}
-              <time dateTime={site.policyDate}>
-                {korean ? "2026년 9월 10일" : "September 10, 2026"}
-              </time>
+              {copy.effective}: <time dateTime={site.policyDate}>{date}</time>
             </span>
             <span>
-              {korean ? "문의" : "Contact"}:{" "}
-              <a href={`mailto:${site.email}`}>{site.email}</a>
+              {copy.contact}: <a href={`mailto:${site.email}`}>{site.email}</a>
             </span>
           </div>
-          {alternateHref && (
-            <nav
-              className="legal-language"
-              aria-label={korean ? "문서 언어" : "Document language"}
-            >
-              <span aria-current="page">{korean ? "Korean" : "English"}</span>
-              <Link href={alternateHref} hrefLang={korean ? "en" : "ko"}>
-                {korean ? "Read in English" : "Read in Korean"}
-              </Link>
-            </nav>
-          )}
           {children}
         </div>
       </main>

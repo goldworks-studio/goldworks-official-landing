@@ -22,7 +22,7 @@ const email = `mailto:support@goldworks.net?subject=${encodeURIComponent("[GoldW
 export default function AccountDeletionPage() {
   return (
     <LegalLayout
-      alternateHref="/ko/account-deletion/"
+      documentPath="/account-deletion/"
       title="Account & Data Deletion"
       eyebrow="GOLDWORKS / YOUR DATA, YOUR CHOICE"
       intro="You can request deletion of your account and personal information from GoldWorks services, including Byeolmong. Email us using the instructions below. You do not need to reinstall the app or sign in to this website."

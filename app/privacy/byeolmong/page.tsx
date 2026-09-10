@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function ByeolmongPrivacyPage() {
   return (
     <LegalLayout
-      alternateHref="/ko/privacy/byeolmong/"
+      documentPath="/privacy/byeolmong/"
       title="Byeolmong Privacy Notice"
       eyebrow="GOLDWORKS / BYEOLMONG"
       intro="This notice explains how GoldWorks processes personal information in Byeolmong. Read it together with the GoldWorks Privacy Policy, which sets out our shared principles on retention, deletion, your rights and how to contact us."

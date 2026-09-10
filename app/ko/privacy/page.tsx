@@ -1,19 +1,12 @@
-import type { Metadata } from "next";
+import { privacyMetadata } from "@/lib/privacy-metadata";
 import Link from "next/link";
 import { LegalLayout } from "@/components/legal-layout";
-import { basePath, site } from "@/lib/site";
+import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "개인정보처리방침",
-  description:
-    "GoldWorks의 앱, 게임 및 웹사이트에 공통으로 적용되는 개인정보 처리 원칙, 이용자 권리, 보관 및 삭제 안내입니다.",
-  alternates: { canonical: `${basePath}/ko/privacy/` },
-  openGraph: {
-    locale: "ko_KR",
-    title: "개인정보처리방침 | GoldWorks",
-    url: `${basePath}/ko/privacy/`,
-  },
-};
+export const metadata = privacyMetadata(
+  "ko",
+  "GoldWorks의 앱, 게임 및 웹사이트에 공통으로 적용되는 개인정보 처리 원칙, 이용자 권리, 보관 및 삭제 안내입니다.",
+);
 const contents = [
   ["scope", "적용 범위"],
   ["collection", "처리 항목과 목적"],
@@ -31,7 +24,7 @@ export default function PrivacyPage() {
   return (
     <LegalLayout
       locale="ko"
-      alternateHref="/privacy/"
+      documentPath="/privacy/"
       title="개인정보처리방침"
       eyebrow="GOLDWORKS / PRIVACY POLICY"
       intro="GoldWorks(이하 ‘골드웍스’)는 이용자의 개인정보를 소중히 다루며, 개인정보 보호법 등 적용되는 법령에 따라 필요한 정보를 정해진 목적으로 처리합니다. 이 방침은 골드웍스의 서비스 전반에 적용되는 공통 원칙을 안내합니다."
