@@ -8,27 +8,47 @@ const basePath =
   rawBase && rawBase !== "/" ? `/${rawBase.replace(/^\/+|\/+$/g, "")}` : "";
 const routes = new Map([
   ["/", "GoldWorks"],
-  ["/privacy/", "개인정보처리방침"],
-  ["/privacy/byeolmong/", "별몽 개인정보 안내"],
-  ["/account-deletion/", "계정 및 데이터 삭제 요청"],
+  ["/privacy/", "Privacy Policy"],
+  ["/privacy/byeolmong/", "Byeolmong Privacy Notice"],
+  ["/account-deletion/", "Account & Data Deletion"],
+  ["/ko/privacy/", "개인정보처리방침"],
+  ["/ko/privacy/byeolmong/", "별몽 개인정보 안내"],
+  ["/ko/account-deletion/", "계정 및 데이터 삭제 요청"],
 ]);
 for (const [route, text] of routes) {
   const file = path.join(output, route, "index.html");
   assert(existsSync(file), `Missing public route: ${route}`);
   const html = readFileSync(file, "utf8");
   assert(
-    html.includes(text),
+    html.replaceAll("&amp;", "&").includes(text),
     `${route} needs visible, server-rendered content`,
   );
   assert(
     html.includes('<html lang="en"'),
     `Missing document language: ${route}`,
   );
-  if (route !== "/")
+  const korean = route.startsWith("/ko/");
+  if (!korean) {
     assert(
-      html.includes('<div lang="ko"'),
-      `Missing Korean legal content language: ${route}`,
+      !/[가-힣ㄱ-ㅎㅏ-ㅣ]/.test(html),
+      `English page contains Korean content or metadata: ${route}`,
     );
+    assert(
+      html.includes('content="en_US"'),
+      `English sharing locale missing: ${route}`,
+    );
+  }
+  if (route !== "/") {
+    assert(
+      html.includes(`<div lang="${korean ? "ko" : "en"}"`),
+      `Incorrect legal content language: ${route}`,
+    );
+    const alternate = korean ? route.slice(3) : `/ko${route}`;
+    assert(
+      html.includes(`href="${basePath}${alternate}"`),
+      `Missing alternate language link: ${route}`,
+    );
+  }
   assert(
     html.includes(`https://goldworks.net${basePath}${route}`),
     `Incorrect canonical URL: ${route}`,
@@ -39,6 +59,24 @@ for (const [route, text] of routes) {
   );
 }
 const home = readFileSync(path.join(output, "index.html"), "utf8");
+const deletion = readFileSync(
+  path.join(output, "account-deletion/index.html"),
+  "utf8",
+);
+assert(
+  deletion.includes(
+    encodeURIComponent("[GoldWorks] Account and data deletion request"),
+  ),
+  "Deletion email subject must be English",
+);
+assert(
+  deletion.includes(
+    encodeURIComponent(
+      "App name: \nRegistered email address or account identifier:",
+    ),
+  ),
+  "Deletion email template must be English",
+);
 assert(
   !/[가-힣ㄱ-ㅎㅏ-ㅣ]/.test(home),
   "Homepage content and metadata must be English only",
@@ -113,5 +151,5 @@ for (const file of htmlFiles(output)) {
   }
 }
 console.log(
-  `Verified ${routes.size} public routes, ${checked} asset references, English homepage, Korean legal content, sitemap, and GitHub Pages files (base path: ${basePath || "/"}).`,
+  `Verified ${routes.size} public routes, ${checked} asset references, English default pages and email template, optional Korean notices, sitemap, and GitHub Pages files (base path: ${basePath || "/"}).`,
 );

@@ -3,39 +3,43 @@ import Link from "next/link";
 import { LegalLayout } from "@/components/legal-layout";
 import { basePath, site } from "@/lib/site";
 
+const description =
+  "How GoldWorks handles personal information across its apps, games and website, including your rights, data retention and deletion.";
 export const metadata: Metadata = {
-  title: "개인정보처리방침",
-  description:
-    "GoldWorks의 앱, 게임 및 웹사이트에 공통으로 적용되는 개인정보 처리 원칙, 이용자 권리, 보관 및 삭제 안내입니다.",
+  title: "Privacy Policy",
+  description,
   alternates: { canonical: `${basePath}/privacy/` },
   openGraph: {
-    title: "개인정보처리방침 | GoldWorks",
+    title: "Privacy Policy | GoldWorks",
+    description,
+    locale: "en_US",
     url: `${basePath}/privacy/`,
   },
 };
 const contents = [
-  ["scope", "적용 범위"],
-  ["collection", "처리 항목과 목적"],
-  ["retention", "보관 및 파기"],
-  ["sharing", "제공·위탁 및 국외 처리"],
-  ["rights", "이용자의 권리"],
-  ["permissions", "접근 권한과 자동 수집"],
-  ["security", "보호 조치"],
-  ["children", "아동의 개인정보"],
-  ["contact", "문의 및 권리 구제"],
-  ["changes", "방침 변경"],
+  ["scope", "Scope"],
+  ["collection", "Information we process"],
+  ["retention", "Retention and deletion"],
+  ["sharing", "Sharing and international transfers"],
+  ["rights", "Your rights"],
+  ["permissions", "Permissions and technical data"],
+  ["security", "Security"],
+  ["children", "Children’s privacy"],
+  ["contact", "Contact and complaints"],
+  ["changes", "Policy updates"],
 ];
 
 export default function PrivacyPage() {
   return (
     <LegalLayout
-      title="개인정보처리방침"
+      alternateHref="/ko/privacy/"
+      title="Privacy Policy"
       eyebrow="GOLDWORKS / PRIVACY POLICY"
-      intro="GoldWorks(이하 ‘골드웍스’)는 이용자의 개인정보를 소중히 다루며, 개인정보 보호법 등 적용되는 법령에 따라 필요한 정보를 정해진 목적으로 처리합니다. 이 방침은 골드웍스의 서비스 전반에 적용되는 공통 원칙을 안내합니다."
+      intro="GoldWorks respects your privacy. We process personal information for specified purposes in accordance with applicable law, including the Personal Information Protection Act of the Republic of Korea. This policy explains the principles that apply across our services."
     >
       <div className="legal-columns">
-        <nav className="legal-toc" aria-label="개인정보처리방침 목차">
-          <p>이 페이지의 내용</p>
+        <nav className="legal-toc" aria-label="Privacy policy contents">
+          <p>On this page</p>
           <ol>
             {contents.map(([id, title]) => (
               <li key={id}>
@@ -46,273 +50,313 @@ export default function PrivacyPage() {
         </nav>
         <div className="legal-content">
           <section id="scope">
-            <h2>1. 적용 범위</h2>
+            <h2>1. Scope</h2>
             <p>
-              본 방침은 골드웍스가 제공하고 이 방침을 연결한 앱, 게임, 웹사이트
-              및 고객 지원에 적용됩니다. 서비스마다 제공 기능과 처리 정보가 다를
-              수 있으며, 실제 적용되는 항목·처리 방식·서비스 제공업체는 아래
-              서비스별 안내에서 확인할 수 있습니다. 서비스별 안내는 본 방침의
-              일부를 구성합니다.
+              This policy applies to the apps, games, website and customer
+              support provided by GoldWorks that link to it. Features and data
+              practices vary between services. The service-specific notices
+              below describe the information, processing methods and providers
+              that actually apply to each service. These notices form part of
+              this policy.
             </p>
             <div className="legal-callout">
               <p>
-                <strong>서비스별 개인정보 안내</strong>
+                <strong>Service-specific privacy notices</strong>
               </p>
               <p>
                 <Link href="/privacy/byeolmong/">
-                  별몽 (Byeolmong) — 처리 항목 및 외부 서비스
+                  Byeolmong — information processing and service providers
                 </Link>
               </p>
               <p>
-                새 서비스가 추가되거나 처리 방식이 달라질 때에는 해당 안내를
-                갱신하고, 법령상 필요한 고지 또는 동의 절차를 진행합니다.
+                We update these notices when we add services or change our data
+                practices, and provide any notices or consent procedures
+                required by law.
               </p>
             </div>
             <p>
-              별도의 개인정보처리방침을 제공하는 서비스에는 해당 방침이
-              적용됩니다. 외부 링크를 통해 이동한 다른 사업자의 서비스에는 그
-              사업자의 방침이 적용됩니다.
+              If a service has its own separate privacy policy, that policy
+              applies. Services operated by other companies, including those
+              reached through external links, are governed by their own
+              policies.
             </p>
           </section>
           <section id="collection">
-            <h2>2. 처리하는 정보와 이용 목적</h2>
+            <h2>2. Information we process and why</h2>
             <p>
-              아래 항목은 해당 기능을 이용하는 경우에만 적용됩니다. 모든 앱이
-              아래 정보를 일괄 수집하는 것은 아니며, 정보를 기기에서만
-              처리하는지 서버로 전송하는지도 서비스별 안내에 명시합니다.
+              The categories below apply only when you use the relevant feature.
+              Each app does not collect every category listed here.
+              Service-specific notices also explain whether information stays on
+              your device or is sent to a server.
             </p>
             <div
               className="legal-table-wrap"
               tabIndex={0}
               role="region"
-              aria-label="처리 항목과 목적 표"
+              aria-label="Information processing and purposes"
             >
               <table>
                 <thead>
                   <tr>
-                    <th scope="col">이용 기능</th>
-                    <th scope="col">정보의 범위</th>
-                    <th scope="col">처리 목적</th>
+                    <th scope="col">Feature</th>
+                    <th scope="col">Information</th>
+                    <th scope="col">Purpose</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>계정 생성·로그인</td>
+                    <td>Account creation and sign-in</td>
                     <td>
-                      이메일, 표시 이름, 계정 식별자, 인증 정보 및 선택한 로그인
-                      제공자가 전달하는 프로필 정보
+                      Email address, display name, account identifiers,
+                      authentication information and profile information
+                      supplied by your chosen sign-in provider
                     </td>
-                    <td>본인 인증, 계정 관리, 로그인 및 계정 복구</td>
+                    <td>
+                      Authentication, account management, sign-in and account
+                      recovery
+                    </td>
                   </tr>
                   <tr>
-                    <td>앱·게임의 기능</td>
+                    <td>App and game features</td>
                     <td>
-                      이용자가 직접 입력·선택·저장한 정보와 서비스 이용에 필요한
-                      설정
+                      Information you enter, select or save, and settings needed
+                      to use the service
                     </td>
-                    <td>이용자가 요청한 기능 제공, 저장 및 동기화</td>
+                    <td>
+                      Providing the features you request, storage and
+                      synchronization
+                    </td>
                   </tr>
                   <tr>
-                    <td>선택 기능</td>
+                    <td>Optional features</td>
                     <td>
-                      기능 수행을 위해 선택한 사진이나 위치 등, 접근 전에 안내한
-                      정보
+                      Information explained before access, such as a photo or
+                      location you select for a feature
                     </td>
-                    <td>이용자가 실행한 해당 기능 제공</td>
+                    <td>Providing the specific feature you choose to use</td>
                   </tr>
                   <tr>
-                    <td>고객 지원</td>
+                    <td>Customer support</td>
                     <td>
-                      회신 이메일, 이용자가 보낸 문의 내용과 첨부자료, 상담 기록
+                      Your reply email address, messages, attachments and
+                      support records
                     </td>
-                    <td>문의 답변, 오류 해결, 개인정보 관련 요청 처리</td>
+                    <td>
+                      Responding to inquiries, resolving issues and handling
+                      privacy requests
+                    </td>
                   </tr>
                   <tr>
-                    <td>접속·서비스 운영</td>
+                    <td>Service delivery and operation</td>
                     <td>
-                      접속 IP, 요청 시각, 브라우저·기기 관련 기술 정보 등 서비스
-                      제공 과정에 필요한 기록
+                      Records needed to deliver the service, such as IP
+                      addresses, request times and technical browser or device
+                      information
                     </td>
-                    <td>통신 처리, 안정적인 제공, 보안 및 부정 이용 대응</td>
+                    <td>
+                      Communication, reliable service delivery, security and
+                      abuse prevention
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <p>
-              골드웍스는 이용자의 입력, 기능 실행 및 해당 서비스에 포함된
-              제공업체를 통해 필요한 정보를 처리합니다. 법령상 동의가 필요한
-              경우 항목, 목적, 보관 기간 및 동의 거부에 따른 영향을 안내하고
-              동의를 받습니다. 계약 이행 등 다른 적법한 근거가 있는 경우에는 그
-              범위에서 처리합니다.
+              We process information through your input, your use of features
+              and the providers used by the relevant service. Where consent is
+              required, we explain the information involved, purposes, retention
+              periods and consequences of declining before obtaining consent.
+              Where another lawful basis applies, such as performing a contract,
+              we process information only within that basis.
             </p>
             <p>
-              개인정보를 판매하지 않으며, 공개한 목적을 벗어나 사용하지
-              않습니다. 처리 목적이 변경되는 경우 필요한 안내 및 별도 동의를
-              진행합니다.
+              We do not sell personal information or use it beyond the disclosed
+              purposes. If those purposes change, we provide the required notice
+              and obtain separate consent where required.
             </p>
           </section>
           <section id="retention">
-            <h2>3. 보관 기간 및 파기</h2>
+            <h2>3. Retention and deletion</h2>
             <ul>
               <li>
-                <strong>계정과 연결된 서비스 정보:</strong> 계정 유지 기간 동안
-                보관하며, 계정 삭제 또는 해당 정보의 삭제 요청이 처리되면 지체
-                없이 파기합니다.
+                <strong>Information linked to your account:</strong> We retain
+                it while your account is maintained and delete it without undue
+                delay when account deletion or a request to delete that
+                information is processed.
               </li>
               <li>
-                <strong>기기에만 저장되는 정보:</strong> 해당 기기에서 이용자가
-                정보를 삭제하거나 앱 데이터를 초기화할 때까지 보관됩니다.
-                운영체제의 백업·복원 기능을 이용했다면 해당 백업은 운영체제 또는
-                계정 설정에서 별도로 관리해야 합니다.
+                <strong>Information stored only on your device:</strong> It
+                remains until you delete it or reset the app’s data on that
+                device. Backups created through your operating system must be
+                managed separately in the relevant device or account settings.
               </li>
               <li>
-                <strong>고객 지원 자료:</strong> 문의 해결 또는 권리 행사 처리에
-                필요한 기간 동안 보관한 뒤 지체 없이 파기합니다. 분쟁이 계속되는
-                경우에는 해당 분쟁 해결에 필요한 범위에서 보관합니다.
+                <strong>Customer support information:</strong> We retain it for
+                as long as necessary to resolve the inquiry or rights request,
+                then delete it without undue delay. If a dispute remains
+                unresolved, we retain only what is needed to address that
+                dispute.
               </li>
               <li>
-                <strong>서비스 제공업체의 기술 기록:</strong> 해당 업체가 명시한
-                보관 기준에 따르며, 구체적인 처리 방식은 서비스별 안내에 연결된
-                업체 문서에서 확인할 수 있습니다.
+                <strong>Providers’ technical records:</strong> These are subject
+                to the providers’ stated retention practices. See the provider
+                documentation linked in the relevant service-specific notice.
               </li>
             </ul>
             <p>
-              법령에 따른 보존 의무가 있는 정보는 해당 법령에서 정한 기간에 한해
-              다른 정보와 구분하여 보관하고, 그 목적에만 이용합니다. 이러한
-              보존이 삭제 요청에 영향을 주는 경우 대상, 근거와 기간을
-              안내합니다.
+              Information we must retain by law is kept separately for the
+              legally required period and used only for that purpose. If this
+              affects a deletion request, we explain the information retained,
+              legal basis and retention period.
             </p>
             <p>
-              파기 대상 전자 정보는 복구·재생이 어렵도록 삭제하고, 종이 자료가
-              있는 경우 분쇄 등으로 파기합니다. 서버의 계정 정보와 기기 저장
-              정보는 별도로 관리되므로, 앱 삭제나 로그아웃만으로 서버의 계정이
-              삭제되지는 않습니다.
+              We delete electronic information in a way intended to prevent
+              recovery or reconstruction, and destroy any paper records by
+              shredding or an equivalent method. Server account data and device
+              data are managed separately: uninstalling an app or signing out
+              does not delete your server account.
             </p>
           </section>
           <section id="sharing">
-            <h2>4. 제3자 제공·처리위탁 및 국외 처리</h2>
+            <h2>4. Sharing, service providers and international transfers</h2>
             <p>
-              골드웍스는 이용자의 동의, 법령의 특별한 규정 등 적법한 근거 없이
-              개인정보를 제3자에게 제공하지 않습니다. 인증, 저장, 통신, 고객
-              지원 등 서비스 운영에 필요한 업무를 외부 업체에 맡길 수 있으며,
-              적용되는 업체·항목·목적을 서비스별 안내에서 공개합니다.
+              We do not disclose personal information to third parties without a
+              lawful basis, such as your consent or a specific legal
+              requirement. We may use external providers for authentication,
+              storage, communication, customer support and other service
+              operations. Applicable providers, information and purposes are
+              disclosed in the service-specific notices.
             </p>
             <p>
-              업무를 위탁하는 경우 목적 외 처리 금지, 보호 조치 등 법령에서
-              요구하는 사항을 정하고 관리합니다. 외부 로그인이나 지도 등
-              이용자가 선택한 외부 기능에서는 해당 제공업체가 자신의 방침에 따라
-              정보를 처리할 수 있습니다.
+              When a provider processes information on our behalf, we establish
+              and manage the requirements prescribed by law, including limits on
+              use and safeguards. Providers of optional external features, such
+              as sign-in or maps, may also process information under their own
+              policies.
             </p>
             <p>
-              외부 서비스 이용으로 개인정보의 국외 이전이 발생하는 경우 적용되는
-              법령상 요건을 충족하는 범위에서 처리합니다. 이전받는 자, 국가,
-              항목, 시기·방법, 목적, 보관 기간과 거부 방법 등 필요한 사항은 해당
-              서비스 안내 또는 별도 고지·동의 화면을 통해 안내합니다.
+              Where using an external service involves an international
+              transfer, we process information subject to applicable legal
+              requirements. Details required by law, including recipients,
+              countries, information, timing and method, purposes, retention and
+              ways to decline, are provided in the relevant service notice or a
+              separate notice and consent screen.
             </p>
           </section>
           <section id="rights">
-            <h2>5. 이용자의 권리와 행사 방법</h2>
+            <h2>5. Your rights and how to exercise them</h2>
             <p>
-              이용자는 적용 법령에 따라 본인의 개인정보에 대한 열람, 정정, 삭제,
-              처리정지, 동의 철회 및 계정 삭제를 요청할 수 있습니다. 앱에서
-              지원하는 설정을 이용하거나 아래 문의처로 연락해 주세요. 법정대리인
-              또는 적법한 위임을 받은 대리인을 통해서도 요청할 수 있습니다.
+              Subject to applicable law, you may request access, correction,
+              deletion, restriction of processing, withdrawal of consent or
+              account deletion. Use the settings supported by your app or
+              contact us below. A legal representative or properly authorized
+              agent may also make a request on your behalf.
             </p>
             <p>
-              골드웍스는 요청자의 본인 여부와 권한을 필요한 최소 범위에서 확인한
-              후, 법령에서 정한 기한과 절차에 따라 처리합니다. 법령상 요청을
-              제한해야 하는 사유가 있다면 그 이유와 대응 방법을 안내합니다.
-              비밀번호나 주민등록번호 전체를 이메일로 보내지 마세요.
+              We verify your identity and authority using only the information
+              necessary, then respond within the procedures and time limits
+              required by law. If a legal restriction prevents us from
+              fulfilling a request, we explain the reason and available next
+              steps. Do not email passwords or full national identification
+              numbers.
             </p>
             <p>
               <Link href="/account-deletion/">
-                계정 및 데이터 삭제 요청 방법 보기
+                How to request account and data deletion
               </Link>
             </p>
             <p>
-              필수 정보 제공을 거부하거나 삭제하는 경우 계정 또는 해당 기능
-              이용이 제한될 수 있습니다. 선택 권한을 거부하더라도 그 권한이
-              필요하지 않은 기능은 이용할 수 있습니다.
+              Declining or deleting required information may prevent use of an
+              account or the relevant feature. Declining an optional permission
+              does not prevent use of features that do not need it.
             </p>
           </section>
           <section id="permissions">
-            <h2>6. 기기 접근 권한 및 자동 수집 정보</h2>
+            <h2>6. Device permissions and technical data</h2>
             <p>
-              위치·사진 등 기기 접근이 필요한 기능은 사용 시점에 용도를
-              안내하고, 운영체제에서 요구하는 권한을 요청합니다. 이용자는 기기
-              설정에서 허용 여부를 변경할 수 있습니다. 실제 사용하는 권한은
-              서비스별 안내를 확인해 주세요.
+              Features requiring access to location, photos or other device
+              resources explain their purpose when used and request permissions
+              required by your operating system. You can change permissions in
+              device settings. See the service-specific notice for the
+              permissions used by each service.
             </p>
             <p>
-              골드웍스의 공식 홈페이지는 자체 광고·행태 분석 도구를 운영하지
-              않습니다. 다만 홈페이지 전달 과정에서 호스팅 및 네트워크
-              제공업체(GitHub Pages, Cloudflare)가 접속 IP와 요청 정보 등을
-              처리할 수 있습니다. 자세한 사항은{" "}
+              The GoldWorks website does not operate its own advertising or
+              behavioral analytics tools. Hosting and network providers,
+              including GitHub Pages and Cloudflare, may process IP addresses
+              and request information when delivering the website. See the{" "}
               <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">
-                GitHub 개인정보 안내
+                GitHub General Privacy Statement
               </a>{" "}
-              및{" "}
+              and the{" "}
               <a href="https://www.cloudflare.com/privacypolicy/">
-                Cloudflare 개인정보처리방침
+                Cloudflare Privacy Policy
               </a>
-              을 확인해 주세요.
+              .
             </p>
             <p>
-              서비스에서 쿠키나 기기 저장소를 이용하는 경우 해당 기능 및 목적을
-              안내합니다. 브라우저나 운영체제 설정에서 저장 정보를 삭제하거나
-              제한할 수 있으나, 로그인 유지나 설정 저장 등 일부 기능에 영향을 줄
-              수 있습니다.
+              Where a service uses cookies or device storage, we explain their
+              features and purposes. You can clear or restrict stored
+              information through browser or operating system settings, although
+              this may affect features such as staying signed in or remembering
+              preferences.
             </p>
           </section>
           <section id="security">
-            <h2>7. 개인정보 보호 조치</h2>
+            <h2>7. How we protect information</h2>
             <p>
-              골드웍스는 개인정보에 대한 접근 권한을 필요한 범위로 제한하고,
-              계정 인증과 접근 통제, HTTPS 등 전송 구간 보호 및 개인정보 취급
-              절차 관리를 통해 정보를 보호합니다. 기기에만 저장된 정보는
-              운영체제의 앱 저장 영역에서 관리되므로, 이용자도 기기 잠금과 계정
-              보안 설정을 관리해 주세요.
+              We limit access to personal information to what is necessary and
+              use account authentication, access controls, protection in transit
+              such as HTTPS, and information-handling procedures. Information
+              kept only on your device is stored within the operating system’s
+              app storage. Please also protect your device lock and account
+              security settings.
             </p>
           </section>
           <section id="children">
-            <h2>8. 아동의 개인정보</h2>
+            <h2>8. Children’s privacy</h2>
             <p>
-              만 14세 미만 아동의 개인정보를 동의를 근거로 처리해야 하는
-              서비스를 제공하는 경우 법정대리인의 동의 및 확인 등 법령상 필요한
-              절차를 마련합니다. 서비스별 이용 가능 연령과 아동 대상 여부는 해당
-              서비스 안내를 따릅니다. 필요한 동의 없이 아동의 개인정보가 처리된
-              사실을 알게 된 경우 아래 문의처로 알려주시면 확인 후 필요한 조치를
-              취하겠습니다.
+              If we offer a service that must rely on consent to process
+              personal information of a child under 14, we establish the legally
+              required procedures, including consent and verification of a legal
+              guardian. Age eligibility and whether a service is directed to
+              children are specified in its service information. If you believe
+              a child’s information has been processed without required consent,
+              contact us so we can investigate and take appropriate action.
             </p>
           </section>
           <section id="contact">
-            <h2>9. 개인정보 문의 및 권리 구제</h2>
+            <h2>9. Contact and complaints</h2>
             <div className="legal-contact">
               <p>
-                <strong>
-                  개인정보 보호 및 요청 처리 담당: GoldWorks (골드웍스)
-                </strong>
+                <strong>Privacy contact and request handling: GoldWorks</strong>
                 <br />
-                이메일: <a href={`mailto:${site.email}`}>{site.email}</a>
+                Email: <a href={`mailto:${site.email}`}>{site.email}</a>
               </p>
             </div>
             <p>
-              개인정보 처리에 관한 문의, 권리 행사 또는 불편 사항을 위 연락처로
-              접수할 수 있습니다. 개인정보 침해에 대한 상담이나 분쟁 조정이
-              필요한 경우{" "}
-              <a href="https://privacy.kisa.or.kr/">개인정보침해 신고센터</a>{" "}
-              또는{" "}
-              <a href="https://www.kopico.go.kr/">개인정보분쟁조정위원회</a>를
-              이용할 수 있습니다.
+              Contact us with privacy questions, requests to exercise your
+              rights or complaints. For privacy infringement assistance or
+              dispute mediation in the Republic of Korea, you may also contact
+              the{" "}
+              <a href="https://privacy.kisa.or.kr/">
+                KISA Privacy Infringement Report Center
+              </a>{" "}
+              or the{" "}
+              <a href="https://www.kopico.go.kr/">
+                Personal Information Dispute Mediation Committee
+              </a>
+              .
             </p>
           </section>
           <section id="changes">
-            <h2>10. 방침 변경</h2>
+            <h2>10. Policy updates</h2>
             <p>
-              이 방침은 2026년 9월 10일부터 적용됩니다. 내용이 변경되면 홈페이지
-              또는 해당 서비스에서 시행일과 변경 내용을 안내합니다. 이용자의
-              권리에 중요한 영향을 주는 변경은 시행 전에 알리고, 법령상 필요한
-              경우 별도의 동의를 받습니다.
+              This policy takes effect on September 10, 2026. When it changes,
+              we publish the effective date and changes on this website or
+              through the relevant service. We provide advance notice of changes
+              that materially affect your rights and obtain separate consent
+              where required by law.
             </p>
           </section>
         </div>

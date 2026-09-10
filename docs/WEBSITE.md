@@ -15,7 +15,7 @@
 
 GoldWorks is an independent game studio. The homepage contains a compact Tiny Fishing Club Steam link, without a game showcase, release information, official game artwork, unannounced apps, or former project names.
 
-The homepage is entirely in English, including accessible labels, navigation, legal links and search/sharing metadata. Its central promise is “Crafting play. Making it matter.” The legal documents remain in Korean, with their own content language declared. The export check rejects Korean homepage text or metadata.
+The homepage and all default legal pages are entirely in English, including accessible labels, navigation, email request templates and search/sharing metadata. The homepage’s central promise is “Crafting play. Making it matter.” Korean legal originals are available only through explicit language links under `/ko/`; browser language never changes the default English experience. The export check rejects Korean content or metadata on every default route.
 
 The homepage expresses the meaning of Gold: refining a spark of imagination into play that people value and return to. A single full-bleed, native-scroll scene places a wide Syne wordmark behind a real-time gold sculpture. A continuous ribbon unfolds across the viewport, passes through two camera orbits, reforms beside the studio statement, and opens around the final words. Two fine light trails follow the same geometry. The atmosphere, fragments, particles, typography and camera belong to one composition. There are no fish or water motifs. The contact section returns to normal document flow; scrolling is never intercepted.
 
@@ -47,6 +47,13 @@ The animation coordinator uses Next.js's file-scoped `@refresh reset` directive.
 - `/privacy/byeolmong/`: service-specific disclosure required to describe the app's real processing. This legal appendix is separate from the homepage and is not a marketing feature.
 - `/account-deletion/`: general email-based deletion request instructions, also identifying the app for Google Play. This is a request path, not an automated deletion service.
 - Policy contact and account-retention principle were confirmed by the owner: GoldWorks, support@goldworks.net, retain account data while the account is maintained.
+- `/ko/privacy/`, `/ko/privacy/byeolmong/` and `/ko/account-deletion/` preserve the Korean originals for Korean-speaking app users. English pages and their Korean counterparts link directly to each other, without JavaScript or automatic redirects. Keep substantive disclosures synchronized in both languages.
+
+### Language review
+
+Google Play’s published privacy-policy requirements do not specify Korean as a mandatory language. This is not a general exemption from local disclosure requirements. The PIPC’s April 2026 guidance, printed page 12 (PDF page 14), requires clear, understandable notices and specifically says overseas businesses subject to the Korean Act must write in Korean for Korean data subjects. GoldWorks is not being classified as an overseas business here; retaining an accessible Korean copy is a precaution based on the general readability requirement and the Korean-facing app. The website defaults to English, while the app can link directly to the Korean legal routes where appropriate. This translation does not establish legal compliance or replace in-app notice and consent obligations.
+
+This language-only revision preserves the original September 10, 2026 effective date and the disclosed processing practices. Original Korean wording remains in the localized pages and Git history.
 
 ### App release follow-through
 
@@ -57,6 +64,8 @@ Before submitting the app, connect the privacy and deletion URLs visibly within 
 Verify the production Firestore location and all overseas-processing disclosures against deployed settings. Local backend documentation recommends Seoul but does not prove the deployed database location. Service-provider regions and retention policies must be kept current, and required disclosures/consents must be implemented in the app. A shared policy does not remove service-specific disclosure obligations or establish compliance by itself.
 
 References reviewed:
+
+- PIPC privacy-policy drafting guidance (April 2026): https://pipc.go.kr/np/cop/bbs/selectBoardArticle.do?bbsId=BS217&mCode=G010030030&nttId=12018
 
 - Google Play privacy policy: https://support.google.com/googleplay/android-developer/answer/9859455?hl=ko
 - User data: https://support.google.com/googleplay/android-developer/answer/10144311?hl=ko

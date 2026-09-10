@@ -41,6 +41,23 @@
   border-bottom: 1px solid #2b2d2f;
   padding: 25px 0 34px;
 }
+.legal-language {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: center;
+  margin-top: 22px;
+  font-size: 13px;
+  color: #939591;
+}
+.legal-language a {
+  color: #d5b779;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.legal-page h1 {
+  overflow-wrap: anywhere;
+}
 .legal-columns {
   display: grid;
   grid-template-columns: 220px minmax(0, 1fr);
