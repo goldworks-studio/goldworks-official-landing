@@ -19,6 +19,7 @@ type Props = {
   children: ReactNode;
   locale?: PrivacyLocale;
   documentPath?: LegalDocument;
+  effectiveDate?: string;
 };
 
 export function LegalLayout({
@@ -28,12 +29,13 @@ export function LegalLayout({
   children,
   locale = "en",
   documentPath = "/privacy/",
+  effectiveDate = site.policyDate,
 }: Props) {
   const copy = localeDetails[locale];
   const date = new Intl.DateTimeFormat(copy.language, {
     dateStyle: "long",
     timeZone: "UTC",
-  }).format(new Date(`${site.policyDate}T00:00:00Z`));
+  }).format(new Date(`${effectiveDate}T00:00:00Z`));
   const options = documentLanguages(documentPath).map((value) => ({
     value,
     label: localeDetails[value].name,
@@ -82,7 +84,7 @@ export function LegalLayout({
               {copy.operator}: {site.name}
             </span>
             <span>
-              {copy.effective}: <time dateTime={site.policyDate}>{date}</time>
+              {copy.effective}: <time dateTime={effectiveDate}>{date}</time>
             </span>
             <span>
               {copy.contact}: <a href={`mailto:${site.email}`}>{site.email}</a>

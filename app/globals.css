@@ -557,6 +557,7 @@ img {
 }
 .cinematic-footer > div {
   display: flex;
+  flex-wrap: wrap;
   gap: 27px;
 }
 .cinematic-footer a:hover {
@@ -580,6 +581,7 @@ img {
 }
 .footer-bottom > div {
   display: flex;
+  flex-wrap: wrap;
   gap: 22px;
 }
 .footer-bottom > span:last-child {

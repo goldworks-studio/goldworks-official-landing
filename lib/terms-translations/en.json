@@ -1,0 +1,127 @@
+{
+  "title": "Terms of Service",
+  "description": "General terms for GoldWorks games, apps, websites and related services, including permitted use, purchases, updates and consumer rights.",
+  "intro": "GoldWorks is an independent studio creating a variety of games and digital experiences. These terms explain the shared conditions for using our services, whatever the title, genre or platform.",
+  "tocLabel": "Terms of Service contents",
+  "contentsLabel": "On this page",
+  "links": {
+    "privacy": "Read our Privacy Policy",
+    "deletion": "Account and data deletion",
+    "steamTerms": "Steam Subscriber Agreement",
+    "steamRefunds": "Steam Refunds",
+    "contact": "Contact GoldWorks"
+  },
+  "sections": [
+    {
+      "id": "scope",
+      "title": "Scope and agreement",
+      "paragraphs": [
+        "These Terms of Service apply to the games, apps, websites, demos and related support or online features provided by GoldWorks that link to these terms (the services). References to accounts, multiplayer, purchases or other features apply only where that service actually offers them.",
+        "Please read these terms before using a service. Where agreement is required, we will present the terms and obtain it through the relevant service or platform. If you do not agree, do not use the service; any cancellation or refund rights available to you remain unaffected.",
+        "A particular service may present additional terms, an end-user licence agreement or platform rules before use or purchase. Those terms govern their specific subject matter if they conflict with these general terms, subject always to mandatory law. These terms do not replace your agreement with a storefront or platform."
+      ]
+    },
+    {
+      "id": "eligibility",
+      "title": "Eligibility and accounts",
+      "paragraphs": [
+        "Follow the age ratings, access requirements and laws applicable to each service and your location. If you cannot enter into a binding agreement on your own, a parent or legal guardian must review and authorize your use where required by law or the platform.",
+        "If a service requires an account, provide accurate information, protect your login details and notify the relevant account provider if you suspect unauthorized access. You are responsible for activity to the extent attributable to you under applicable law. Using a platform account does not automatically create a separate GoldWorks account."
+      ]
+    },
+    {
+      "id": "licence",
+      "title": "Licence and intellectual property",
+      "paragraphs": [
+        "Subject to these terms and any applicable purchase conditions, GoldWorks grants you a limited, non-exclusive licence to access and use the service for personal entertainment. Commercial use, distribution or transfer requires permission unless the applicable service terms, platform rules or law allow it.",
+        "Games, code, artwork, music, characters, trademarks and other service materials belong to GoldWorks or their respective rights holders. A purchase grants the applicable usage rights, not ownership of that intellectual property. Open-source and third-party components remain subject to their own licences."
+      ]
+    },
+    {
+      "id": "conduct",
+      "title": "Fair and acceptable use",
+      "paragraphs": [
+        "Use the services lawfully and respect other people. You must not:"
+      ],
+      "items": [
+        "Harass, threaten or impersonate others, or share unlawful content or another person's private information without authorization.",
+        "Use cheats, exploits or unauthorized automation to gain an unfair advantage in shared play, manipulate purchases or rewards, or disrupt other users.",
+        "Introduce malware, attack or overload services, access accounts or systems without permission, or bypass security or access controls.",
+        "Copy, sell or redistribute protected materials without permission, or reverse engineer the services except where applicable law or an express licence permits it. Authorized mods and uses permitted by law remain allowed."
+      ]
+    },
+    {
+      "id": "content",
+      "title": "Player content and sharing",
+      "paragraphs": [
+        "If a service lets you submit content, you retain your rights in it. You must have the rights needed to share it. You give GoldWorks only the permission reasonably needed to host, display and process that content to operate the feature you use, subject to your settings and the Privacy Policy. Any additional use requires a separate legal basis or permission.",
+        "You may share screenshots and gameplay videos of publicly released games, including streams monetized through a video platform, subject to any clearly disclosed restrictions for the relevant game and third-party rights, including music rights. Do not imply official sponsorship or share material covered by an agreed confidentiality obligation. This permission does not authorize distributing the game itself or selling its assets."
+      ]
+    },
+    {
+      "id": "purchases",
+      "title": "Purchases, refunds and virtual items",
+      "paragraphs": [
+        "Where paid content is offered, the price, included content and relevant purchase conditions are shown before purchase. Payments, cancellations and refunds made through Steam or another storefront are handled under that seller's terms and procedures, together with applicable consumer law. Contact the seller for transaction support; you may also contact GoldWorks for help with our content.",
+        "Nothing in these terms removes any mandatory right to a refund, withdrawal, repair, replacement or other remedy. We do not impose a blanket no-refund policy.",
+        "If a game offers virtual currency or items, they are licensed for use within that game under the disclosed conditions. They are not a bank deposit or real-world currency and have no cash redemption or transfer right unless expressly offered or required by law. Any changes or discontinuation remain subject to your purchase rights and applicable law."
+      ]
+    },
+    {
+      "id": "updates",
+      "title": "Updates and pre-release versions",
+      "paragraphs": [
+        "We may provide fixes, balance changes and updates, or change supported features for reasonable development, security or operational needs. We will provide notice of material changes where appropriate and as required by law, and respect obligations relating to purchased content.",
+        "Demos, playtests, beta versions and early-access releases may be incomplete, contain errors or change during development. Progress may not carry over where this is disclosed. Announced features and release dates may change; purchase based on the content and commitments stated at the time of purchase. This does not limit binding promises or statutory rights."
+      ]
+    },
+    {
+      "id": "availability",
+      "title": "Availability and ending access",
+      "paragraphs": [
+        "Availability can depend on your device, connection and third-party platforms. Maintenance or circumstances outside our reasonable control may interrupt online features. We will give reasonable advance notice of planned material interruptions or closure where practicable and meet any legal notice and remedy obligations.",
+        "We may restrict or suspend affected access where reasonably necessary to address a material breach, a security risk or a legal requirement. Measures will be proportionate; where practicable and lawful, we will explain the reason and provide an opportunity to resolve the issue. Contact us to request review. Urgent protective action may be taken first when necessary.",
+        "You may stop using a service at any time. Ending access does not remove accrued rights, mandatory remedies or obligations that by their nature continue, such as protection of intellectual property. Account and personal-data deletion requests are explained in the linked instructions."
+      ]
+    },
+    {
+      "id": "privacy",
+      "title": "Privacy and third-party services",
+      "paragraphs": [
+        "Our Privacy Policy and any service-specific notices explain how personal information is handled and how to exercise your rights. Acceptance of these terms is not a substitute for any separate privacy consent required by law.",
+        "External storefronts, account providers and other linked services operate under their own terms and privacy policies. Their availability and decisions may be outside our control; this does not exclude any responsibility we have under applicable law."
+      ]
+    },
+    {
+      "id": "responsibility",
+      "title": "Our responsibilities and your rights",
+      "paragraphs": [
+        "We will provide our services with the care and quality required by applicable law. We cannot promise that every service will always be uninterrupted, error-free or compatible with every device; check the stated system requirements before purchasing.",
+        "Each party's responsibility for loss is determined by applicable law. Nothing in these terms excludes or limits liability that cannot lawfully be excluded or limited, including liability for fraud, intentional misconduct or gross negligence, or mandatory consumer guarantees. These terms do not require you to waive statutory protections."
+      ]
+    },
+    {
+      "id": "disputes",
+      "title": "Questions, disputes and applicable law",
+      "paragraphs": [
+        "Please contact GoldWorks if you have a concern so we can try to resolve it. This does not prevent you from seeking a remedy directly from a platform, consumer authority or court with jurisdiction under applicable law.",
+        "Applicable law, including mandatory consumer protections in your place of residence, governs your rights. These terms do not impose compulsory arbitration, waive collective remedies available by law or require an exclusive court that deprives you of mandatory protections. If a provision is unenforceable, the remaining terms continue only to the extent permitted by law."
+      ]
+    },
+    {
+      "id": "changes",
+      "title": "Changes to these terms",
+      "paragraphs": [
+        "We may update these terms to reflect changes to our services or legal requirements. We will publish the revised terms and effective date, give reasonable advance notice of material changes and obtain renewed agreement where required by law. Changes will not retroactively remove rights relating to an existing purchase.",
+        "If you do not agree to a change, you may stop using the affected service and exercise any available cancellation or refund rights. The language versions are intended to convey the same terms; no translation overrides protections required by applicable law."
+      ]
+    },
+    {
+      "id": "contact",
+      "title": "Contact",
+      "paragraphs": [
+        "For questions about these terms, service issues or a review of an access restriction, contact GoldWorks at the email address below. Include the service name, platform and a brief description so we can direct your request. Never send passwords or full payment-card details."
+      ]
+    }
+  ]
+}

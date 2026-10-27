@@ -19,6 +19,7 @@ export function Footer({ locale = "en" }: { locale?: PrivacyLocale }) {
         <span>© {new Date().getFullYear()} GoldWorks</span>
         <div>
           <Link href={legalPath(locale)}>{copy.privacy}</Link>
+          <Link href={legalPath(locale, "/terms/")}>{copy.terms}</Link>
           <Link href={legalPath(locale, "/account-deletion/")}>
             {copy.deletion}
           </Link>

@@ -35,6 +35,42 @@ const policyPaths = {
   "pt-br": "/pt-br/privacy/",
   "zh-cn": "/zh-cn/privacy/",
 };
+const termsPaths = Object.fromEntries(
+  Object.keys(localeCodes).map((locale) => [
+    locale,
+    `${locale === "en" ? "" : `/${locale}`}/terms/`,
+  ]),
+);
+const termsCopies = Object.fromEntries(
+  Object.keys(localeCodes).map((locale) => [
+    locale,
+    JSON.parse(readFileSync(`lib/terms-translations/${locale}.json`, "utf8")),
+  ]),
+);
+for (const [locale, route] of Object.entries(termsPaths)) {
+  routes.set(route, termsCopies[locale].title);
+}
+
+function attributes(tag) {
+  return Object.fromEntries(
+    [...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map((match) => [
+      match[1].toLowerCase(),
+      match[2],
+    ]),
+  );
+}
+
+function decodeText(value) {
+  return value
+    .replaceAll("&quot;", '"')
+    .replace(/&#(?:x27|39);/g, "'")
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">")
+    .replaceAll("&amp;", "&");
+}
+
+const absoluteUrl = (route) => `https://goldworks.net${basePath}${route}`;
+
 for (const [route, text] of routes) {
   const file = path.join(output, route, "index.html");
   assert(existsSync(file), `Missing public route: ${route}`);
@@ -49,6 +85,12 @@ for (const [route, text] of routes) {
   );
   const segment = route.split("/")[1];
   const locale = Object.hasOwn(localeCodes, segment) ? segment : "en";
+  const isTerms = Object.values(termsPaths).includes(route);
+  const isPolicy = Object.values(policyPaths).includes(route);
+  const languagePaths = isTerms ? termsPaths : policyPaths;
+  const links = [...html.matchAll(/<link\b[^>]*>/g)].map((match) =>
+    attributes(match[0]),
+  );
   if (locale === "en") {
     const documentHtml = html
       .replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "")
@@ -68,12 +110,12 @@ for (const [route, text] of routes) {
       html.includes(`<div lang="${localeCodes[locale]}"`),
       `Incorrect legal content language: ${route}`,
     );
-    const isPolicy = Object.values(policyPaths).includes(route);
     const options = [...html.matchAll(/<option\b([^>]*)>/g)].map((match) => ({
       value: match[1].match(/value="([^"]+)"/)?.[1],
       selected: /\bselected/.test(match[1]),
     }));
-    const expectedLocales = isPolicy ? Object.keys(policyPaths) : ["en", "ko"];
+    const expectedLocales =
+      isPolicy || isTerms ? Object.keys(localeCodes) : ["en", "ko"];
     assert.deepEqual(
       options.map((option) => option.value).sort(),
       [...expectedLocales].sort(),
@@ -111,10 +153,95 @@ for (const [route, text] of routes) {
         `Incomplete policy sections: ${route}`,
       );
     }
+    assert.deepEqual(
+      [...html.matchAll(/<time\b[^>]*>/g)].map(
+        (match) => attributes(match[0]).datetime,
+      ),
+      [isTerms ? "2026-10-27" : "2026-09-10"],
+      `Incorrect effective date: ${route}`,
+    );
+    if (isPolicy || isTerms) {
+      const fallback = html.match(/<noscript\b[^>]*>([\s\S]*?)<\/noscript>/)?.[1];
+      assert(fallback, `Missing fallback language navigation: ${route}`);
+      for (const [lang, destination] of Object.entries(languagePaths)) {
+        assert(
+          fallback.includes(`href="${basePath}${destination}"`),
+          `Missing no-JavaScript ${lang} language destination: ${route}`,
+        );
+        assert.deepEqual(
+          links
+            .filter(
+              (link) =>
+                link.rel === "alternate" &&
+                link.hreflang?.toLowerCase() === localeCodes[lang].toLowerCase(),
+            )
+            .map((link) => link.href),
+          [absoluteUrl(destination)],
+          `Incorrect search language destination ${lang}: ${route}`,
+        );
+      }
+      assert.deepEqual(
+        links
+          .filter(
+            (link) => link.rel === "alternate" && link.hreflang === "x-default",
+          )
+          .map((link) => link.href),
+        [absoluteUrl(languagePaths.en)],
+        `Incorrect default language destination: ${route}`,
+      );
+    }
+    if (isTerms) {
+      const copy = termsCopies[locale];
+      assert.equal(copy.sections.length, 13, `Incomplete terms source: ${locale}`);
+      assert.deepEqual(
+        [...html.matchAll(/<section\b[^>]*\bid="([^"]+)"/g)].map(
+          (match) => match[1],
+        ),
+        copy.sections.map((section) => section.id),
+        `Incorrect terms sections: ${route}`,
+      );
+      const documentHtml = decodeText(
+        html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, ""),
+      );
+      for (const section of copy.sections) {
+        assert(
+          documentHtml.includes(`href="#${section.id}"`),
+          `Missing terms contents anchor ${section.id}: ${route}`,
+        );
+        for (const content of [
+          section.title,
+          ...section.paragraphs,
+          ...(section.items ?? []),
+        ]) {
+          assert(
+            documentHtml.includes(content),
+            `Missing server-rendered terms text in ${section.id}: ${route}`,
+          );
+        }
+      }
+    }
   }
+  const footer = html.match(/<footer\b[^>]*>([\s\S]*?)<\/footer>/)?.[1];
+  assert(footer, `Missing footer: ${route}`);
+  const termsFooterLinks = [...footer.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)]
+    .filter(
+      (match) =>
+        attributes(match[1]).href === `${basePath}${termsPaths[locale]}`,
+    )
+    .map((match) => decodeText(match[2].replace(/<[^>]*>/g, "")));
+  assert.deepEqual(
+    termsFooterLinks,
+    [termsCopies[locale].title],
+    `Missing localized terms footer link: ${route}`,
+  );
   assert(
     html.includes(`https://goldworks.net${basePath}${route}`),
     `Incorrect canonical URL: ${route}`,
+  );
+  assert.deepEqual(
+    links.filter((link) => link.rel === "canonical").map((link) => link.href),
+    [absoluteUrl(route)],
+    `Incorrect canonical link: ${route}`,
   );
   assert(
     !/name="robots"[^>]*noindex/.test(html),
@@ -181,6 +308,40 @@ if (existsSync("public/CNAME"))
   );
 for (const file of ["robots.txt", "sitemap.xml"])
   assert(existsSync(path.join(output, file)), `Missing ${file}`);
+const sitemap = readFileSync(path.join(output, "sitemap.xml"), "utf8");
+const sitemapEntries = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map(
+  (match) => ({
+    url: match[1].match(/<loc>([^<]+)<\/loc>/)?.[1],
+    links: [...match[1].matchAll(/<xhtml:link\b[^>]*>/g)].map((link) =>
+      attributes(link[0]),
+    ),
+  }),
+);
+for (const route of routes.keys()) {
+  const entries = sitemapEntries.filter(
+    (entry) => entry.url === absoluteUrl(route),
+  );
+  assert.equal(entries.length, 1, `Missing or duplicate sitemap route: ${route}`);
+  const languagePaths = Object.values(termsPaths).includes(route)
+    ? termsPaths
+    : Object.values(policyPaths).includes(route)
+      ? policyPaths
+      : null;
+  if (languagePaths) {
+    for (const [locale, destination] of Object.entries(languagePaths)) {
+      assert.deepEqual(
+        entries[0].links
+          .filter(
+            (link) =>
+              link.rel === "alternate" && link.hreflang === localeCodes[locale],
+          )
+          .map((link) => link.href),
+        [absoluteUrl(destination)],
+        `Incorrect sitemap language ${locale}: ${route}`,
+      );
+    }
+  }
+}
 
 function* htmlFiles(directory) {
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
@@ -214,5 +375,5 @@ for (const file of htmlFiles(output)) {
   }
 }
 console.log(
-  `Verified ${routes.size} public routes, ${checked} asset references, six policy languages, selected dropdown values, no-JavaScript links, English defaults, and GitHub Pages files (base path: ${basePath || "/"}).`,
+  `Verified ${routes.size} public routes, ${checked} asset references, six privacy and terms languages, complete terms sections, effective dates, localized footer links, dropdowns, no-JavaScript navigation, canonical URLs, sitemap alternatives, English defaults, and GitHub Pages files (base path: ${basePath || "/"}).`,
 );

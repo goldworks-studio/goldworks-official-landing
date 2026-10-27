@@ -262,6 +262,7 @@ export function StudioExperience() {
         <span>© {new Date().getFullYear()} GoldWorks</span>
         <div>
           <Link href="/privacy/">Privacy Policy</Link>
+          <Link href="/terms/">Terms of Service</Link>
           <Link href="/account-deletion/">Data Deletion</Link>
         </div>
         <a href="#main">Back to top ↑</a>

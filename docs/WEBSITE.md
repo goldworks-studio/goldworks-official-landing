@@ -41,6 +41,16 @@ A reported hydration warning came from a random browser-added `data-*` attribute
 
 The animation coordinator uses Next.js's file-scoped `@refresh reset` directive. Editing its shared state contract remounts it during development instead of retaining stale animation callbacks through Fast Refresh. This has no production behavior or effect on ordinary page interactions.
 
+## Terms of Service
+
+- General studio terms cover GoldWorks games, apps, demos, websites and related services that link to them, without naming a product or promising that every game offers accounts, multiplayer or purchases.
+- The six routes are `/terms/` (English), `/es/terms/` (Spanish), `/ja/terms/` (Japanese), `/ko/terms/` (Korean), `/pt-br/terms/` (Brazilian Portuguese) and `/zh-cn/terms/` (Simplified Chinese). Homepage and legal-page footers link to the appropriate version.
+- All versions share `components/terms-document.tsx` and reviewed copy in `lib/terms-translations/`. They reuse the Privacy layout, language selector, keyboard navigation and no-JavaScript language links, with their own canonical, language alternatives and sitemap entries.
+- The terms have a separate effective date of October 27, 2026 (`site.termsDate`). The existing Privacy notices retain September 10, 2026 (`site.policyDate`).
+- The 13 sections cover scope, eligibility, licences, acceptable use, player content, purchases/refunds, updates/pre-release versions, availability/termination, privacy, responsibility, disputes, changes and contact. Storefront terms and mandatory consumer rights are preserved. Features and extra service terms apply only when offered or disclosed.
+- `check:translations` verifies every terms dictionary against the English source structure and digest. Review translations when changing English; do not update digests without checking meaning. `check:export` verifies all 17 public routes, complete rendered terms, language navigation, dates, footer links and metadata. These checks run in the Pages deployment build.
+- Reference material reviewed: [Steam Subscriber Agreement](https://store.steampowered.com/subscriber_agreement/), [Steam Refunds](https://store.steampowered.com/steam_refunds/) and [Korea's Act on the Regulation of Terms and Conditions](https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1025032407). The published terms link directly to the relevant Steam policies rather than fixing platform-specific refund windows in studio terms.
+
 ## Privacy pages
 
 - `/privacy/`: shared GoldWorks policy for services that link to it.
