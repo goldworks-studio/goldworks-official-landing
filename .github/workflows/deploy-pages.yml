@@ -64,12 +64,24 @@ jobs:
       - name: Build and verify static export
         run: npm run build:pages
 
+      # actions/upload-pages-artifact always drops dot-paths (tar --exclude=".[^/]*"), which would leave out
+      # .well-known/discord (Discord's HTTPS domain verification). Pack the export the same way, keeping them.
+      - name: Archive Pages artifact
+        if: github.event_name != 'pull_request'
+        shell: sh
+        run: |
+          tar --dereference --hard-dereference --directory ./out -cvf "$RUNNER_TEMP/artifact.tar" \
+            --exclude=.git --exclude=.github .
+          tar -tf "$RUNNER_TEMP/artifact.tar" | grep -qx './.well-known/discord'
+
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request'
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-artifact@v4
         with:
-          path: ./out
-          include-hidden-files: true
+          name: github-pages
+          path: ${{ runner.temp }}/artifact.tar
+          retention-days: 1
+          if-no-files-found: error
 
   deploy:
     if: github.event_name != 'pull_request' && github.ref_name == github.event.repository.default_branch
